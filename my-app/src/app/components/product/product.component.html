@@ -1,0 +1,22 @@
+<!-- [property]="value" is for inputing value to that property in the component using @Input() decorator -->
+<!-- (property)="function($event)" is for outputing the value that property is emitting as an event, 
+    so the value will be passed into the function as an event -->
+<!-- Using both [()] is called double binding, it inputs and outputs at the same time depending on the event -->
+<!-- The first time it will be an input and it will take it as the default value, then if the event defined occurs, it will input and outputs -->
+<!-- In this case, we are giving it the product rating as the default value, once I change the rating in frontend it will then inputs that change and outputs the rating again-->
+<div class="product-card">
+    <img [src]="product.image" alt="product image">
+    <div class="product-info">
+      <h2>{{product.name | truncateName : 15 : "..."}}</h2>
+      <p-rating 
+        [(ngModel)]="product.rating" 
+        [readonly]="true"
+        [cancel]="false"
+    ></p-rating>
+      <p class="price">{{product.price | price : "£" }}</p>
+      <p-button label="Edit" (click)="onEdit()" [raised]="true" severity="info"></p-button>
+      <p-button #deleteButton label="Delete" (click)="onDeleteConfirm()" [raised]="true" severity="danger"></p-button>
+    </div>
+  </div>
+
+  <p-confirmPopup></p-confirmPopup>

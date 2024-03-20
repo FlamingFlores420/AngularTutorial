@@ -1,0 +1,32 @@
+<app-header></app-header>
+<main>
+
+    <div class="product-wrapper">
+    @for (prod of products; track product.id) {
+        <app-product [product]="prod" (edit)="toggleEditPopUp($event)" (delete)="onConfirmDelete($event)"></app-product>
+    }@empty {
+        <p>There are no products</p>
+    }
+    </div>
+    <p-paginator #paginator (onPageChange)="onPageChange($event)" [first]="1" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+
+    <app-edit-pop-up 
+        (confirm)="onConfirmAdd($event)"
+        [(display)]="displayCreate"
+    ></app-edit-pop-up>
+
+    <app-edit-pop-up 
+        [product]="selectedProduct"
+        (confirm)="onConfirmEdit($event)"
+        [(display)]="displayEdit"
+    ></app-edit-pop-up>
+
+    
+
+    <p-button label="Add Product" (click)="toggleAddPopUp()" [raised]="true"></p-button>
+
+</main>
+
+
+
+<app-footer></app-footer>
